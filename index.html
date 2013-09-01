@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <link href='styles/main.css' rel='stylesheet' type='text/css'>
+        <title>dashboard</title>
+    </head>
+
+    <body>
+        <table class='layer app' border='0'>
+            <!-- <tr> -->
+            <!--     <td class='blank'>:)</td> -->
+            <!--     <th class='metric-name' colspan='3'>requests/sec</th> -->
+            <!--     <th class='metric-name' colspan='3'>response time (ms)</th> -->
+            <!-- </tr> -->
+
+            <!-- <tr> -->
+            <!--     <td></td> -->
+            <!--     <td class='time-span'>15</td> -->
+            <!--     <td class='time-span'>5</td> -->
+            <!--     <td class='time-span last'>1</td> -->
+            <!--     <td class='time-span'>15</td> -->
+            <!--     <td class='time-span'>5</td> -->
+            <!--     <td class='time-span last'>1</td> -->
+            <!-- </tr> -->
+            <!-- <tr> -->
+            <!--     <th class='instance-name'>a-0</th> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!-- </tr> -->
+            <!-- <tr> -->
+            <!--     <th class='instance-name'>a-1</th> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!-- </tr> -->
+            <!-- <tr> -->
+            <!--     <th class='instance-name'>a-2</th> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!-- </tr> -->
+            <!-- <tr> -->
+            <!--     <th class='instance-name'>a-3</th> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val'>WWWW</td> -->
+            <!--     <td class='metric-val last'>WWWW</td> -->
+            <!-- </tr> -->
+
+        </table>
+
+        <script src='js/libs/jquery-2.0.3.min.js'></script>
+        <script>
+            var data = {
+                layer: 'app',
+                metrics: [
+                    {'name': 'requests/sec', 'intervals': ['15', '10', '1']},
+                    {'name': 'response time (ms)', 'intervals': ['15', '10', '1']},
+                ],
+                instances: [{
+                    name: 'a-0',
+                    values: [[450, 700, 895], [300, 350, 425]]
+                }, {
+                    name: 'a-1',
+                    values: [[450, 700, 895], [300, 350, 425]]
+                }, {
+                    name: 'a-2',
+                    values: [[450, 700, 895], [300, 350, 425]]
+                }, {
+                    name: 'a-3',
+                    values: [[450, 700, 895], [300, 350, 425]]
+                }]
+            };
+
+            $(function() {
+                var $table = $('.layer.' + data.layer);
+
+                var $headerRow = $('<tr><td class="blank">:)</td></tr>');
+                var $intervalRow = $('<tr><td></td></tr>');
+
+                $.each(data.metrics, function(i, metric) {
+                    $headerRow.append($('<th class="metric-name" colspan="'+metric.intervals.length+'">'+metric.name+'</th>'));
+                    $.each(metric.intervals, function(j, interval) {
+                        var $td = $('<td class="interval">'+interval+'</td>');
+                        if (j === metric.intervals.length-1) {
+                            $td.addClass('last');
+                        }
+                        $intervalRow.append($td);
+                    });
+                });
+
+                $table.append($headerRow);
+                $table.append($intervalRow);
+
+                $.each(data.instances, function(i, instance) {
+                    var $row = $('<tr></tr>');
+                    $row.append($('<th class="instance-name">'+instance.name+'</th>'));
+
+                    $.each(instance.values, function(i, set) {
+                        $.each(set, function(i, val) {
+                            var $td = $('<td class="metric-val">'+val+'</td>');
+                            if (i === set.length-1) {
+                                $td.addClass('last');
+                            }
+
+                            $row.append($td);
+                        });
+                    });
+
+                    $table.append($row);
+                });
+            });
+        </script>
+    </body>
+
+</html>

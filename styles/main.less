@@ -1,0 +1,47 @@
+
+@gray8: hsl(0, 0%, 8%);
+@gray72: hsl(0, 0%, 72%);
+
+* {
+    font-family: 'Inconsolata', monospace;
+    color: @gray8;
+    font-size: 1em;
+    box-spacing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+table {
+    border-spacing: 0;
+}
+
+    td, th {
+        text-align: center;
+        border-bottom: 1px solid @gray8;
+        border-right: 1px solid @gray8;
+    }
+
+    .blank {
+        text-align: left;
+        border-bottom: none;
+    }
+
+    .instance-name {
+        padding: 3px 3px 3px 50px;
+    }
+
+    .interval, .metric-val {
+        border-right-color: @gray72;
+        text-align: center;
+        font-size: 0.75em;
+
+        &.last {
+            border-right-color: @gray8;
+        }
+    }
+
+    .metric-name {
+        width: 200px;
+    }
